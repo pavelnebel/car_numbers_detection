@@ -79,6 +79,8 @@ def detection_recognition(upload_images, paths_nomer, paths_resnet):
         rot_angle = angle - 90
     elif -90 <= angle < -45:
         rot_angle = 90 + angle
+    else:
+        rot_angle = 0
     if abs(rot_angle) > 20:
         rot_angle = 0
 
@@ -213,6 +215,8 @@ def detection_recognition(upload_images, paths_nomer, paths_resnet):
             rot_angle = angle - 90
         elif -90 <= angle < -45:
             rot_angle = 90 + angle
+        else:
+            rot_angle = 0
         if abs(rot_angle) > 20:
             rot_angle = 0
         rotated = rotate(image, rot_angle, resize=True) * 255

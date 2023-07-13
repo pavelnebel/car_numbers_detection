@@ -79,6 +79,8 @@ def detection_recognition(upload_images, paths_nomer, paths_resnet):
         rot_angle = angle - 90
     elif -90 <= angle < -45:
         rot_angle = 90 + angle
+    else:
+        rot_angle = 0
     if abs(rot_angle) > 20:
         rot_angle = 0
 
@@ -207,14 +209,18 @@ def detection_recognition(upload_images, paths_nomer, paths_resnet):
         out, angles, distances = hough_line(edges)
         _, angles_peaks, _ = hough_line_peaks(out, angles, distances, num_peaks=20)
         angle = np.mean(np.rad2deg(angles_peaks))
+
         if 0 <= angle <= 90:
             rot_angle = angle - 90
         elif -45 <= angle < 0:
             rot_angle = angle - 90
         elif -90 <= angle < -45:
             rot_angle = 90 + angle
+        else:
+            rot_angle = 0
         if abs(rot_angle) > 20:
             rot_angle = 0
+
         rotated = rotate(image, rot_angle, resize=True) * 255
         rotated = rotated.astype(np.uint8)
         rotated1 = rotated[:, :, :]
